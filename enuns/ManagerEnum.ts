@@ -1,4 +1,4 @@
-export enum GerenteEnum {
+export enum ManagerEnum {
   PF = "Pessoa Física",
   PJ = "Pessoa Jurídica",
 }
