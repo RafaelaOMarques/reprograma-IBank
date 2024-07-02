@@ -1,56 +1,27 @@
-import { GerenteConta } from "../entities/GerenteConta";
-import { GerenteEnum } from "../enuns/GerenteEnum";
-import { PessoaFisica } from "../entities/PessoaFisica";
-import { PessoaJuridica } from "../entities/PessoaJuridica";
-import { TipoContaEnum } from "../enuns/tipoContaEnum";
+import { ManagerAccount } from "../entities/ManagerAccount";
+import { ManagerEnum } from "../enuns/ManagerEnum";
+import { Person } from "../entities/Person";
+import { Business } from "../entities/Business";
+import { TypeAccountEnum } from "../enuns/TypeAccountEnum";
 import { StatusEnum } from "../enuns/StatusEnum";
 
-// Antes da implementação do gerente a ContaBanco sem acesso privado
-// const contaBancariaCliente1 = new ContaBanco(
-//   "0001",
-//   cliente1,
-//   "1234-x",
-//   "98.872-1",
-//   TipoContaEnum.Poupanca,
-//   "basico",
-//   0.0,
-//   gerentePF
-// );
-// contaBancariaCliente1.depositar(1000.0);
-
-// const contaBancariaCliente2 = new ContaBanco(
-//   "0002",
-//   cliente2,
-//   "1234-x",
-//   "200.654-9",
-//   TipoContaEnum.Corrente,
-//   "empresarial",
-//   1500.0,
-//   gerentePJ
-// );
-// console.log(contaBancariaCliente1.saldo);
-// console.log(contaBancariaCliente2.saldo);
-// contaBancariaCliente1.sacar(3000);
-// contaBancariaCliente2.sacar(1500);
-// contaBancariaCliente1.depositar(500000);
-
-const gerentePF = new GerenteConta(
+const gerentePF = new ManagerAccount(
   "Rafaela Marques",
   "022.995.483-01",
   "Aracaju/SE",
   "79998810179",
-  GerenteEnum.PF
+  ManagerEnum.PF
 );
 
-const gerentePJ = new GerenteConta(
+const gerentePJ = new ManagerAccount(
   "Maria Oliveira",
   "312.995.483-01",
   "Aracaju/SE",
   "7932451001",
-  GerenteEnum.PJ
+  ManagerEnum.PJ
 );
 
-const cliente1 = new PessoaFisica(
+const cliente1 = new Person(
   "Mariana",
   "123.543.999-00",
   "Rua das flores, 32 - Centro, Aracaju - SE",
@@ -58,7 +29,7 @@ const cliente1 = new PessoaFisica(
   2300
 );
 
-const cliente2 = new PessoaJuridica(
+const cliente2 = new Business(
   "Reprograma",
   "01.234.987/0001-01",
   "Av.Paulista, 16 - Centro, São Paulo - SP",
@@ -66,7 +37,7 @@ const cliente2 = new PessoaJuridica(
   50000.0
 );
 
-const cliente3 = new PessoaFisica(
+const cliente3 = new Person(
   "Aparecida Souza",
   "555.543.786-00",
   "Rua Amado - Centro, Aracaju - SE",
@@ -89,7 +60,7 @@ const contaCliente1 = gerentePF.criarConta(
   cliente1,
   "1234-x",
   "98.872-1",
-  TipoContaEnum.Poupanca,
+  TypeAccountEnum.Poupanca,
   "basico",
   0.0
 );
@@ -99,7 +70,7 @@ const contaCliente3 = gerentePF.criarConta(
   cliente3,
   "1234-x",
   "98.872-1",
-  TipoContaEnum.Corrente,
+  TypeAccountEnum.Corrente,
   "basico",
   2000.0
 );
@@ -115,19 +86,19 @@ console.log(gerentePF);
 console.log(
   "-------------------Consultando Lista de Contas-------------------"
 );
-console.log(gerentePF.contas);
+console.log(gerentePF.accountsList);
 
 console.log("---------------Alterando Tipo Conta--------------------");
 console.log("De Poupança para Salário");
-gerentePF.alterarTipoConta(contaCliente1, TipoContaEnum.Salario);
+gerentePF.alterTypeAccount(contaCliente1, TypeAccountEnum.Salario);
 console.log(contaCliente1);
 
 console.log("De Corrente para Poupança");
-gerentePF.alterarTipoConta(contaCliente3, TipoContaEnum.Poupanca);
+gerentePF.alterTypeAccount(contaCliente3, TypeAccountEnum.Poupanca);
 console.log(contaCliente3);
 
 console.log("--------------Encerrando Conta--------------------");
-gerentePF.encerrarConta(contaCliente1);
+gerentePF.closeAccount(contaCliente1);
 console.log(contaCliente1);
-gerentePF.encerrarConta(contaCliente1);
+gerentePF.closeAccount(contaCliente1);
 console.log(contaCliente1);
