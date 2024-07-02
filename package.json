@@ -1,0 +1,20 @@
+{
+  "name": "reprograma-ibank",
+  "version": "1.0.0",
+  "description": "Projeto a ser apresentado na formação Reprograma Back-end",
+  "main": "index.js",
+  "scripts": {
+    "start": "resolucao.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelaOMarques/reprograma-IBank.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RafaelaOMarques/reprograma-IBank/issues"
+  },
+  "homepage": "https://github.com/RafaelaOMarques/reprograma-IBank#readme"
+}
