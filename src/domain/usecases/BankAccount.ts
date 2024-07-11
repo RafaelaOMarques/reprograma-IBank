@@ -1,8 +1,8 @@
 import { ManagerAccount } from "./ManagerAccount";
-import { Person } from "./Person";
-import { Business } from "./Business";
-import { TypeAccountEnum } from "../enuns/TypeAccountEnum";
-import { StatusEnum } from "../enuns/StatusEnum";
+import { Person } from "../entities/Person";
+import { Business } from "../entities/Business";
+import { TypeAccountEnum } from "../../shared/enuns/TypeAccountEnum";
+import { StatusEnum } from "../../shared/enuns/StatusEnum";
 
 export class BankAccount {
   id: string;
@@ -24,11 +24,11 @@ export class BankAccount {
     type: TypeAccountEnum,
     tariffs: string,
     balance: number,
-    accountManager: ManagerAccount
+    accountManager: ManagerAccount,
   ) {
     if (type === TypeAccountEnum.Corrente && balance < 500.0) {
       throw new Error(
-        "Para abrir uma conta com tipo Corrente é necessário possuir saldo minimo de R$ 500.00"
+        "Para abrir uma conta com tipo Corrente é necessário possuir saldo minimo de R$ 500.00",
       );
     }
 
@@ -88,7 +88,7 @@ export class BankAccount {
     type: TypeAccountEnum,
     tariffs: string,
     balance: number,
-    accountManager: ManagerAccount
+    accountManager: ManagerAccount,
   ): BankAccount {
     return new BankAccount(
       id,
@@ -98,7 +98,7 @@ export class BankAccount {
       type,
       tariffs,
       balance,
-      accountManager
+      accountManager,
     );
   }
 
