@@ -1,0 +1,15 @@
+{
+  "type": "postgres",
+  "host":"localhost",
+  "port": 5432,
+  "username": "rafapostgres",
+  "password": 1234,
+  "database": "ibank",
+  "entities":[
+    "src/account/entities/account.entity.ts",
+    "src/business/entities/business.entity.ts",
+    "src/persons/entities/person.entity.ts"
+  ],
+  "synchronize": false
+
+}
