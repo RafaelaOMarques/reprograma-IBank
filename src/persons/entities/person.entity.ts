@@ -1,19 +1,21 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Persons } from "../interfaces/Persons.interface";
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
+import { Persons } from "../../shared/interfaces/Persons.interface";
+import { Address } from "src/address/address.entity";
 
 @Entity()
 export class Person implements Persons {
   @PrimaryGeneratedColumn('uuid')
-  public id: number;
+  public id: string;
 
   @Column()
   public name: string;
  
-  @Column()
+  @Column({unique: true})
   public cpf: string;
 
-  @Column()
-  public address: string;
+  @OneToOne(() => Address, { nullable: true, cascade: true })
+  @JoinColumn()
+  public address: Address;
 
   @Column()
   public telephone: string;
@@ -22,14 +24,15 @@ export class Person implements Persons {
   public salary: number;
 
   constructor(
-    id: number, name: string, cpf: string, address: string, telephone: string,salary: number
+    name: string, cpf: string, telephone: string, salary: number, id?: string
   ){
-    this.id = id;
     this.name = name;
     this.cpf = cpf;
-    this.address = address;
     this.telephone = telephone;
     this.salary = salary
+    if(!id){
+      this.id = id
+    }
   }
 
 }

@@ -8,51 +8,67 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PersonService = void 0;
 const common_1 = require("@nestjs/common");
 const person_entity_1 = require("./entities/person.entity");
-const typeorm_1 = require("typeorm");
-const typeorm_2 = require("@nestjs/typeorm");
+const persons_repository_1 = require("./persons.repository");
+const via_cep_service_1 = require("../third-party/via-cep/via-cep.service");
+const persons_validator_1 = require("../shared/utils/persons.validator");
 let PersonService = class PersonService {
     constructor(personRepository) {
         this.personRepository = personRepository;
+        this.persons = [];
     }
-    async findAll() {
-        return this.personRepository.find();
+    async listPersons() {
+        return await this.personRepository.findAll();
     }
-    async findOne(id) {
-        return this.personRepository.findOne({ where: { id } });
+    async listPersonById(id) {
+        const person = await this.personRepository.findById(id);
+        if (!person) {
+            throw new Error('Person not found');
+        }
+        return person;
     }
-    async create(createPersonDto) {
-        const newPerson = this.personRepository.create({
-            name: createPersonDto.name,
-            cpf: createPersonDto.cpf,
-            address: createPersonDto.address,
-            telephone: createPersonDto.telephone,
-            salary: createPersonDto.salary
-        });
-        return this.personRepository.save(newPerson);
+    async newPerson(name, cpf, telephone, salary, zipCode, complement) {
+        persons_validator_1.PersonValidator.verifyCpf(cpf);
+        persons_validator_1.PersonValidator.checkCpfAlreadyInUse(this.persons, cpf);
+        let address = null;
+        if (zipCode) {
+            address = await via_cep_service_1.ViaCepService.getAddress(zipCode);
+            if (complement) {
+                address.complement = complement;
+            }
+        }
+        const person = new person_entity_1.Person(name, cpf, telephone, salary);
+        person.address = address;
+        this.persons.push(person);
+        return await this.personRepository.save(person);
     }
-    async patch(id, patchPersonDto) {
-        await this.personRepository.update(id, patchPersonDto);
-        return this.personRepository.findOne({ where: { id } });
-    }
-    async update(id, updatePersonDto) {
-        await this.personRepository.update(id, updatePersonDto);
-        return this.personRepository.findOne({ where: { id } });
+    async updatePerson(id, name, cpf, telephone, salary, zipCode) {
+        const person = await this.listPersonById(id);
+        if (!person) {
+            throw new Error('Person not found');
+        }
+        if (person) {
+            person.name = name;
+            person.cpf = cpf;
+            person.telephone = telephone;
+            person.salary = salary;
+            if (zipCode) {
+                person.address = await via_cep_service_1.ViaCepService.getAddress(zipCode);
+            }
+            return await this.personRepository.save(person);
+        }
+        return null;
     }
     async remove(id) {
-        await this.personRepository.delete({ id });
+        await this.personRepository.delete(id);
     }
 };
 exports.PersonService = PersonService;
 exports.PersonService = PersonService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(person_entity_1.Person)),
-    __metadata("design:paramtypes", [typeorm_1.Repository])
+    __metadata("design:paramtypes", [persons_repository_1.PersonRepository])
 ], PersonService);
 //# sourceMappingURL=persons.service.js.map

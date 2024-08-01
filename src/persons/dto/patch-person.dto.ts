@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Address } from 'src/address/address.entity';
 
 
 export class PatchPersonDto {
@@ -12,9 +13,11 @@ export class PatchPersonDto {
   @IsNotEmpty()
   cpf: string;
 
+  // @IsString()
+  // @IsNotEmpty()
+  // address: Address;
   @IsString()
-  @IsNotEmpty()
-  address: string;
+  zipcode: string;
 
   @IsString()
   @IsNotEmpty()

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, OnApplicationShutdown, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, OnApplicationShutdown, Param, Delete, Put, BadRequestException } from '@nestjs/common';
 import { PersonService } from './persons.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
@@ -9,34 +9,45 @@ import { PatchPersonDto } from './dto/patch-person.dto';
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
+  
   @Get()
-  findAll(): Promise<Person[]> {
-    return this.personService.findAll();
+  async listPersons(): Promise<Person[]> {
+    return await this.personService.listPersons();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): Promise<Person> {
-    return this.personService.findOne(id);
+  async listPersonById(@Param('id') id: string): Promise<Person> {
+    return await this.personService.listPersonById(id);
   }
 
   @Post()
-  create(@Body() createPersonDto: CreatePersonDto): Promise<Person> {
-    return this.personService.create(createPersonDto);
-  }
-
-  @Patch(':id')
-  modify(@Param('id') id: number, @Body() patchPersonDto: PatchPersonDto): Promise<Person> {
-    return this.personService.patch(id, patchPersonDto);
+  async create(@Body() createPersonDto: CreatePersonDto): Promise<Person> {
+    const { name, cpf, telephone, salary, zipCode } = createPersonDto;
+    return this.personService.newPerson(name, cpf, telephone, salary, zipCode);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() updatePersonDto: UpdatePersonDto): Promise<Person>{
-
-    return this.personService.update(id, updatePersonDto);
+  update(@Param('id') id: string, @Body() updatePersonDto: UpdatePersonDto){
+    try{
+      return this.personService.updatePerson(
+        id, 
+        updatePersonDto.name, 
+        updatePersonDto.cpf, 
+        updatePersonDto.telephone, 
+        updatePersonDto.salary, 
+        updatePersonDto.zipcode, 
+      );
+    }catch(error){
+      throw new BadRequestException({ error: error.message})
+    }
   }
+    // @Patch(':id')
+  // modify(@Param('id') id: number, @Body() patchPersonDto: PatchPersonDto): Promise<Person> {
+  //   return this.personService.patch(id, patchPersonDto);
+  // }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: string) {
     return this.personService.remove(id);
   }
 }

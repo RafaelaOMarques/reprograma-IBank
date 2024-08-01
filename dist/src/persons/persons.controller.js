@@ -17,25 +17,27 @@ const common_1 = require("@nestjs/common");
 const persons_service_1 = require("./persons.service");
 const create_person_dto_1 = require("./dto/create-person.dto");
 const update_person_dto_1 = require("./dto/update-person.dto");
-const patch_person_dto_1 = require("./dto/patch-person.dto");
 let PersonController = class PersonController {
     constructor(personService) {
         this.personService = personService;
     }
-    findAll() {
-        return this.personService.findAll();
+    async listPersons() {
+        return await this.personService.listPersons();
     }
-    findOne(id) {
-        return this.personService.findOne(id);
+    async listPersonById(id) {
+        return await this.personService.listPersonById(id);
     }
-    create(createPersonDto) {
-        return this.personService.create(createPersonDto);
-    }
-    modify(id, patchPersonDto) {
-        return this.personService.patch(id, patchPersonDto);
+    async create(createPersonDto) {
+        const { name, cpf, telephone, salary, zipCode } = createPersonDto;
+        return this.personService.newPerson(name, cpf, telephone, salary, zipCode);
     }
     update(id, updatePersonDto) {
-        return this.personService.update(id, updatePersonDto);
+        try {
+            return this.personService.updatePerson(id, updatePersonDto.name, updatePersonDto.cpf, updatePersonDto.telephone, updatePersonDto.salary, updatePersonDto.zipcode);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException({ error: error.message });
+        }
     }
     remove(id) {
         return this.personService.remove(id);
@@ -47,14 +49,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], PersonController.prototype, "findAll", null);
+], PersonController.prototype, "listPersons", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], PersonController.prototype, "findOne", null);
+], PersonController.prototype, "listPersonById", null);
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
@@ -63,26 +65,18 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PersonController.prototype, "create", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, patch_person_dto_1.PatchPersonDto]),
-    __metadata("design:returntype", Promise)
-], PersonController.prototype, "modify", null);
-__decorate([
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_person_dto_1.UpdatePersonDto]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:paramtypes", [String, update_person_dto_1.UpdatePersonDto]),
+    __metadata("design:returntype", void 0)
 ], PersonController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], PersonController.prototype, "remove", null);
 exports.PersonController = PersonController = __decorate([

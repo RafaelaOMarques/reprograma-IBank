@@ -15,17 +15,23 @@ const typeorm_1 = require("@nestjs/typeorm");
 const person_entity_1 = require("./persons/entities/person.entity");
 const business_entity_1 = require("./business/entities/business.entity");
 const business_module_1 = require("./business/business.module");
+const address_entity_1 = require("./address/address.entity");
+require('dotenv').config();
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [persons_module_1.PersonsModule, manager_module_1.ManagerModule, account_module_1.AccountModule, business_module_1.BusinessModule, typeorm_1.TypeOrmModule.forRoot({
-                type: 'sqlite',
-                database: 'data.db',
-                entities: [person_entity_1.Person, business_entity_1.Business],
+        imports: [typeorm_1.TypeOrmModule.forRoot({
+                type: 'postgres',
+                host: 'localhost',
+                port: 5432,
+                database: process.env.DATABASE_NAME,
+                username: process.env.DATABASE_USERNAME,
+                password: process.env.DATABASE_PASSWORD,
+                entities: [person_entity_1.Person, business_entity_1.Business, address_entity_1.Address],
                 synchronize: true,
-            })],
+            }), persons_module_1.PersonsModule, manager_module_1.ManagerModule, account_module_1.AccountModule, business_module_1.BusinessModule,],
         controllers: [],
         providers: [],
     })

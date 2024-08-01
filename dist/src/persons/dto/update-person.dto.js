@@ -26,9 +26,8 @@ __decorate([
 ], UpdatePersonDto.prototype, "cpf", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], UpdatePersonDto.prototype, "address", void 0);
+], UpdatePersonDto.prototype, "zipcode", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

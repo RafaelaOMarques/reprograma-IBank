@@ -12,6 +12,7 @@ const persons_service_1 = require("./persons.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const person_entity_1 = require("./entities/person.entity");
 const persons_controller_1 = require("./persons.controller");
+const persons_repository_1 = require("./persons.repository");
 let PersonsModule = class PersonsModule {
 };
 exports.PersonsModule = PersonsModule;
@@ -19,7 +20,8 @@ exports.PersonsModule = PersonsModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([person_entity_1.Person])],
         controllers: [persons_controller_1.PersonController],
-        providers: [persons_service_1.PersonService],
+        providers: [persons_service_1.PersonService, persons_repository_1.PersonRepository],
+        exports: [persons_service_1.PersonService, persons_repository_1.PersonRepository]
     })
 ], PersonsModule);
 //# sourceMappingURL=persons.module.js.map

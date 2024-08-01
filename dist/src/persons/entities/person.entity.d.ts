@@ -1,10 +1,11 @@
-import { Persons } from "../interfaces/Persons.interface";
+import { Persons } from "../../shared/interfaces/Persons.interface";
+import { Address } from "src/address/address.entity";
 export declare class Person implements Persons {
-    id: number;
+    id: string;
     name: string;
     cpf: string;
-    address: string;
+    address: Address;
     telephone: string;
     salary: number;
-    constructor(id: number, name: string, cpf: string, address: string, telephone: string, salary: number);
+    constructor(name: string, cpf: string, telephone: string, salary: number, id?: string);
 }
