@@ -3,7 +3,6 @@ import { PersonService } from './persons.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { Person } from './entities/person.entity';
-import { PatchPersonDto } from './dto/patch-person.dto';
 
 @Controller('person')
 export class PersonController {

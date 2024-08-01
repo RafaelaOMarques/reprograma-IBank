@@ -17,25 +17,27 @@ const common_1 = require("@nestjs/common");
 const business_service_1 = require("./business.service");
 const update_business_dto_1 = require("./dto/update-business.dto");
 const create_business_dto_1 = require("./dto/create-business.dto");
-const patch_business_dto_1 = require("./dto/patch-business.dto");
 let BusinessController = class BusinessController {
     constructor(businessService) {
         this.businessService = businessService;
     }
     findAll() {
-        return this.businessService.findAll();
+        return this.businessService.listBusiness();
     }
     findOne(id) {
-        return this.businessService.findOne(id);
+        return this.businessService.listBusinessById(id);
     }
     create(createBusinessDto) {
-        return this.businessService.create(createBusinessDto);
+        const { name, cnpj, telephone, billing, zipCode } = createBusinessDto;
+        return this.businessService.newBusiness(name, cnpj, telephone, billing, zipCode);
     }
     update(id, updateBusinessDto) {
-        return this.businessService.update(id, updateBusinessDto);
-    }
-    modify(id, patchBusinessDto) {
-        return this.businessService.patch(id, patchBusinessDto);
+        try {
+            return this.businessService.updateBusiness(id, updateBusinessDto.name, updateBusinessDto.cnpj, updateBusinessDto.telephone, updateBusinessDto.billing, updateBusinessDto.zipCode);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException({ error: error.message });
+        }
     }
     remove(id) {
         return this.businessService.remove(id);
@@ -52,7 +54,7 @@ __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], BusinessController.prototype, "findOne", null);
 __decorate([
@@ -67,22 +69,14 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_business_dto_1.UpdateBusinessDto]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:paramtypes", [String, update_business_dto_1.UpdateBusinessDto]),
+    __metadata("design:returntype", void 0)
 ], BusinessController.prototype, "update", null);
-__decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, patch_business_dto_1.PatchBusinessDto]),
-    __metadata("design:returntype", Promise)
-], BusinessController.prototype, "modify", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], BusinessController.prototype, "remove", null);
 exports.BusinessController = BusinessController = __decorate([

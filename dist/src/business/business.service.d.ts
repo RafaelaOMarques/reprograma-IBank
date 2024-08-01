@@ -1,15 +1,12 @@
-import { UpdateBusinessDto } from './dto/update-business.dto';
-import { CreateBusinessDto } from './dto/create-business.dto';
-import { Repository } from 'typeorm';
 import { Business } from './entities/business.entity';
-import { PatchBusinessDto } from './dto/patch-business.dto';
+import { BusinessRepository } from './business.repository';
 export declare class BusinessService {
     private readonly businessRepository;
-    constructor(businessRepository: Repository<Business>);
-    findAll(): Promise<Business[]>;
-    findOne(id: number): Promise<Business>;
-    create(createBusinessDto: CreateBusinessDto): Promise<Business>;
-    patch(id: number, patchBusinessDto: PatchBusinessDto): Promise<Business>;
-    update(id: number, updateBusinessDto: UpdateBusinessDto): Promise<Business>;
-    remove(id: number): Promise<void>;
+    private businesses;
+    constructor(businessRepository: BusinessRepository);
+    listBusiness(): Promise<Business[]>;
+    listBusinessById(id: string): Promise<Business>;
+    newBusiness(name: string, cnpj: string, telephone: string, billing: number, zipCode?: string, complement?: string): Promise<Business>;
+    updateBusiness(id: string, name: string, cnpj: string, telephone: string, billing: number, zipCode: string): Promise<Business | null>;
+    remove(id: string): Promise<void>;
 }

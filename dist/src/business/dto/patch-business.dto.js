@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PatchBusinessDto = void 0;
 const class_validator_1 = require("class-validator");
+const address_entity_1 = require("../../address/address.entity");
 class PatchBusinessDto {
 }
 exports.PatchBusinessDto = PatchBusinessDto;
@@ -27,7 +28,7 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
+    __metadata("design:type", address_entity_1.Address)
 ], PatchBusinessDto.prototype, "address", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),

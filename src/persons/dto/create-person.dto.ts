@@ -15,15 +15,14 @@ export class CreatePersonDto {
 
   @IsString()
   @IsNotEmpty()
-  address: Address;
-
-  @IsString()
-  @IsNotEmpty()
   telephone: string;
 
   @IsNumber()
   salary: number;
 
+  @IsString()
+  @IsNotEmpty()
+  address: Address;
   
   @IsString()
   zipCode?: string;

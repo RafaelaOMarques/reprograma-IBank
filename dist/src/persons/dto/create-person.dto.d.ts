@@ -3,8 +3,8 @@ export declare class CreatePersonDto {
     id: string;
     name: string;
     cpf: string;
-    address: Address;
     telephone: string;
     salary: number;
+    address: Address;
     zipCode?: string;
 }

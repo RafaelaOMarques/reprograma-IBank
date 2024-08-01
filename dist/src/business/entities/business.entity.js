@@ -10,25 +10,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Business = void 0;
+const address_entity_1 = require("../../address/address.entity");
 const typeorm_1 = require("typeorm");
 let Business = class Business {
+    constructor(name, cnpj, telephone, billing, id) {
+        this.name = name;
+        this.cnpj = cnpj;
+        this.telephone = telephone;
+        this.billing = billing;
+        if (!id) {
+            this.id = id;
+        }
+    }
 };
 exports.Business = Business;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
 ], Business.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Business.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], Business.prototype, "cnpj", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
+    (0, typeorm_1.OneToOne)(() => address_entity_1.Address, { nullable: true, cascade: true }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", address_entity_1.Address)
 ], Business.prototype, "address", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -39,6 +50,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Business.prototype, "billing", void 0);
 exports.Business = Business = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)(),
+    __metadata("design:paramtypes", [String, String, String, Number, String])
 ], Business);
 //# sourceMappingURL=business.entity.js.map

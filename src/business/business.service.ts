@@ -1,52 +1,95 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateBusinessDto } from './dto/update-business.dto';
-import { CreateBusinessDto } from './dto/create-business.dto';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Business } from './entities/business.entity';
-import { PatchBusinessDto } from './dto/patch-business.dto';
+import { BusinessRepository } from './business.repository';
+import { PersonValidator } from 'src/shared/utils/persons.validator';
+import { Address } from 'src/address/address.entity';
+import { ViaCepService } from 'src/third-party/via-cep/via-cep.service';
 
 
 @Injectable()
 export class BusinessService {
+  private businesses: Business[] = []
   constructor( 
-    @InjectRepository(Business)
-    private readonly businessRepository: Repository<Business>
+    private readonly businessRepository: BusinessRepository
   ){}
 
-  async findAll(): Promise<Business[]> {
-    return this.businessRepository.find();
+  async listBusiness(): Promise<Business[]> {
+    return this.businessRepository.findAll();
   }
 
-  async findOne(id: number): Promise<Business> {
-    return this.businessRepository.findOne({where: {id}});
+  async listBusinessById(id: string): Promise<Business> {
+    return this.businessRepository.findById(id);
   }
 
-  async create(createBusinessDto: CreateBusinessDto): Promise<Business> {
-    const newBusiness = this.businessRepository.create({
-      name: createBusinessDto.name,
-      cnpj: createBusinessDto.cnpj,
-      address: createBusinessDto.address,
-      telephone: createBusinessDto.telephone,
-      billing: createBusinessDto.billing,
-    })
+  async newBusiness(
+    name: string,
+    cnpj: string,
+    telephone: string,
+    billing: number,
+    zipCode?: string,
+    complement?: string,
+  ): Promise<Business> {
 
-    return this.businessRepository.save(newBusiness)
-  }
+    PersonValidator.verifyCnpj(cnpj);
+    PersonValidator.checkCnpjAlreadyInUse(this.businesses, cnpj);
 
-    //PATCH
-    async patch(id: number, patchBusinessDto: PatchBusinessDto): Promise<Business> {
-      await this.businessRepository.update(id, patchBusinessDto);
-      return this.businessRepository.findOne({where: {id}})
+    let address: Address = null;
+
+    if (zipCode) {
+      address = await ViaCepService.getAddress(zipCode);
+      if(complement){
+        address.complement = complement;
+      }
     }
-  
+
+    const business = new Business(name, cnpj, telephone, billing);
+
+    business.address = address;
+    this.businesses.push(business);
+    return await this.businessRepository.save(business);
+  }
+
     //PUT
-    async update(id: number, updateBusinessDto: UpdateBusinessDto): Promise<Business> {
-      await this.businessRepository.update(id, updateBusinessDto);
-      return this.businessRepository.findOne({where: {id}})
+    async updateBusiness(
+      id: string,
+      name: string,
+      cnpj: string,
+      telephone: string,
+      billing: number,
+      zipCode: string,
+    ): Promise<Business | null> {
+      const business = await this.listBusinessById(id);
+
+      if(!business) {
+        throw new Error('Business not found');
+      }
+
+      if(business){
+        business.name = name;
+        business.cnpj = cnpj;
+        business.telephone = telephone;
+        business.billing = billing;
+
+        if(zipCode){
+          business.address = await ViaCepService.getAddress(zipCode);
+        }
+
+        return await this.businessRepository.save(business)
+      }
+
+      return null;
     }
 
-  async remove(id: number): Promise<void> {
-    await this.businessRepository.delete({id});
+
+  
+  //PATCH
+  // async patch(id: number, patchBusinessDto: PatchBusinessDto):     Promise<Business> {
+  //   await this.businessRepository.update(id, patchBusinessDto);
+  //   return this.businessRepository.findOne({where: {id}})
+  // }
+  
+  //DELETE
+  async remove(id: string): Promise<void> {
+    await this.businessRepository.delete(id);
   }
 }

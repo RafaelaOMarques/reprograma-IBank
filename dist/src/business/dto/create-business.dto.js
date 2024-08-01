@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateBusinessDto = void 0;
 const class_validator_1 = require("class-validator");
+const address_entity_1 = require("../../address/address.entity");
 class CreateBusinessDto {
 }
 exports.CreateBusinessDto = CreateBusinessDto;
@@ -28,14 +29,18 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateBusinessDto.prototype, "address", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
 ], CreateBusinessDto.prototype, "telephone", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateBusinessDto.prototype, "billing", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", address_entity_1.Address)
+], CreateBusinessDto.prototype, "address", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateBusinessDto.prototype, "zipCode", void 0);
 //# sourceMappingURL=create-business.dto.js.map

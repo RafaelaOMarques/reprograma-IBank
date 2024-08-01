@@ -1,8 +1,9 @@
+import { Address } from 'src/address/address.entity';
 export declare class PatchBusinessDto {
-    id: number;
+    id: string;
     name: string;
     cpf: string;
-    address: string;
+    address: Address;
     telephone: string;
     billing: number;
 }

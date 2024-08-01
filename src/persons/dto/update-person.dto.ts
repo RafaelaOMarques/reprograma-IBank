@@ -13,9 +13,10 @@ export class UpdatePersonDto {
   @IsNotEmpty()
   cpf: string;
 
-  // @IsString()
-  // @IsNotEmpty()
-  // address: Address;
+  @IsString()
+  @IsNotEmpty()
+  address: Address;
+  
   @IsString()
   zipcode?: string;
 

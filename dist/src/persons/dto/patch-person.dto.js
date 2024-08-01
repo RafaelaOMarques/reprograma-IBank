@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PatchPersonDto = void 0;
 const class_validator_1 = require("class-validator");
+const address_entity_1 = require("../../address/address.entity");
 class PatchPersonDto {
 }
 exports.PatchPersonDto = PatchPersonDto;
@@ -26,10 +27,6 @@ __decorate([
 ], PatchPersonDto.prototype, "cpf", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], PatchPersonDto.prototype, "zipcode", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PatchPersonDto.prototype, "telephone", void 0);
@@ -37,4 +34,13 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], PatchPersonDto.prototype, "salary", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", address_entity_1.Address)
+], PatchPersonDto.prototype, "address", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], PatchPersonDto.prototype, "zipcode", void 0);
 //# sourceMappingURL=patch-person.dto.js.map

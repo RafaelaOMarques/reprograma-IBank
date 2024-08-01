@@ -4,17 +4,12 @@ import { UpdatePersonDto } from './dto/update-person.dto';
 import { Person } from './entities/person.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PatchPersonDto } from './dto/patch-person.dto';
 import { PersonRepository } from './persons.repository';
 import { Address } from 'src/address/address.entity';
 import { ViaCepService } from 'src/third-party/via-cep/via-cep.service';
 import { PersonValidator } from 'src/shared/utils/persons.validator';
 
-  //TODO: Criar os metodos de validação de cpf, email e o que fizer sentido
-
   //TODO: Criar message error custumizada
-
-
 
 @Injectable()
 export class PersonService {

@@ -1,9 +1,7 @@
-import { Controller, Get, Post, Body, Patch, OnApplicationShutdown, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, OnApplicationShutdown, Param, Delete, Put, BadRequestException } from '@nestjs/common';
 import { BusinessService } from './business.service';
 import { UpdateBusinessDto } from './dto/update-business.dto';
 import { CreateBusinessDto } from './dto/create-business.dto';
-import { Business } from './entities/business.entity';
-import { PatchBusinessDto } from './dto/patch-business.dto';
 
 
 @Controller('business')
@@ -12,31 +10,43 @@ export class BusinessController {
 
   @Get()
   findAll() {
-    return this.businessService.findAll();
+    return this.businessService.listBusiness();
   }
     
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.businessService.findOne(id);
+  findOne(@Param('id') id: string) {
+    return this.businessService.listBusinessById(id);
   }
 
   @Post()
   create(@Body() createBusinessDto: CreateBusinessDto) {
-    return this.businessService.create(createBusinessDto);
+    const { name, cnpj, telephone, billing, zipCode } = createBusinessDto;
+    return this.businessService.newBusiness(name, cnpj, telephone, billing, zipCode);
   }
       
   @Put(':id')
-  update(@Param('id') id: number, @Body() updateBusinessDto: UpdateBusinessDto): Promise<Business>  {
-    return this.businessService.update(id, updateBusinessDto);
+  update(@Param('id') id: string, @Body() updateBusinessDto: UpdateBusinessDto) {
+    try{
+      return this.businessService.updateBusiness(
+        id, 
+        updateBusinessDto.name, 
+        updateBusinessDto.cnpj, 
+        updateBusinessDto.telephone, 
+        updateBusinessDto.billing, 
+        updateBusinessDto.zipCode, 
+      );
+    }catch(error){
+      throw new BadRequestException({ error: error.message})
+    }
   }
       
-  @Patch(':id')
-  modify(@Param('id') id: number, @Body() patchBusinessDto: PatchBusinessDto): Promise<Business> {
-    return this.businessService.patch(id, patchBusinessDto);
-  }
+  // @Patch(':id')
+  // modify(@Param('id') id: number, @Body() patchBusinessDto: PatchBusinessDto): Promise<Business> {
+  //   return this.businessService.patch(id, patchBusinessDto);
+  // }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: string) {
     return this.businessService.remove(id);
   }
 }

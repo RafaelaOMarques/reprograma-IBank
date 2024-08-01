@@ -28,17 +28,17 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", address_entity_1.Address)
-], CreatePersonDto.prototype, "address", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreatePersonDto.prototype, "telephone", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreatePersonDto.prototype, "salary", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", address_entity_1.Address)
+], CreatePersonDto.prototype, "address", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

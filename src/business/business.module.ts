@@ -3,10 +3,12 @@ import { BusinessService } from './business.service';
 import { BusinessController } from './business.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Business } from './entities/business.entity';
+import { BusinessRepository } from './business.repository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Business])],
   controllers: [BusinessController],
-  providers: [BusinessService],
+  providers: [BusinessService, BusinessRepository],
+  exports: [BusinessService, BusinessRepository],
 })
 export class BusinessModule {}

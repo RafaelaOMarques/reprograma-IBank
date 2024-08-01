@@ -1,7 +1,8 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { Address } from "src/address/address.entity";
 
 export class CreateBusinessDto {
-  id: number;
+  id: string;
 
   @IsString()
   @IsNotEmpty()
@@ -13,13 +14,17 @@ export class CreateBusinessDto {
 
   @IsString()
   @IsNotEmpty()
-  address: string;
-
-  @IsString()
-  @IsNotEmpty()
   telephone: string;
 
   @IsNumber()
   billing: number;
+  
+  @IsString()
+  @IsNotEmpty()
+  address: Address;
+  
+  @IsString()
+  zipCode?: string;
+
 }
  

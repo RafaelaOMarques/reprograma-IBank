@@ -8,51 +8,63 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BusinessService = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("typeorm");
-const typeorm_2 = require("@nestjs/typeorm");
 const business_entity_1 = require("./entities/business.entity");
+const business_repository_1 = require("./business.repository");
+const persons_validator_1 = require("../shared/utils/persons.validator");
+const via_cep_service_1 = require("../third-party/via-cep/via-cep.service");
 let BusinessService = class BusinessService {
     constructor(businessRepository) {
         this.businessRepository = businessRepository;
+        this.businesses = [];
     }
-    async findAll() {
-        return this.businessRepository.find();
+    async listBusiness() {
+        return this.businessRepository.findAll();
     }
-    async findOne(id) {
-        return this.businessRepository.findOne({ where: { id } });
+    async listBusinessById(id) {
+        return this.businessRepository.findById(id);
     }
-    async create(createBusinessDto) {
-        const newBusiness = this.businessRepository.create({
-            name: createBusinessDto.name,
-            cnpj: createBusinessDto.cnpj,
-            address: createBusinessDto.address,
-            telephone: createBusinessDto.telephone,
-            billing: createBusinessDto.billing,
-        });
-        return this.businessRepository.save(newBusiness);
+    async newBusiness(name, cnpj, telephone, billing, zipCode, complement) {
+        persons_validator_1.PersonValidator.verifyCnpj(cnpj);
+        persons_validator_1.PersonValidator.checkCnpjAlreadyInUse(this.businesses, cnpj);
+        let address = null;
+        if (zipCode) {
+            address = await via_cep_service_1.ViaCepService.getAddress(zipCode);
+            if (complement) {
+                address.complement = complement;
+            }
+        }
+        const business = new business_entity_1.Business(name, cnpj, telephone, billing);
+        business.address = address;
+        this.businesses.push(business);
+        return await this.businessRepository.save(business);
     }
-    async patch(id, patchBusinessDto) {
-        await this.businessRepository.update(id, patchBusinessDto);
-        return this.businessRepository.findOne({ where: { id } });
-    }
-    async update(id, updateBusinessDto) {
-        await this.businessRepository.update(id, updateBusinessDto);
-        return this.businessRepository.findOne({ where: { id } });
+    async updateBusiness(id, name, cnpj, telephone, billing, zipCode) {
+        const business = await this.listBusinessById(id);
+        if (!business) {
+            throw new Error('Business not found');
+        }
+        if (business) {
+            business.name = name;
+            business.cnpj = cnpj;
+            business.telephone = telephone;
+            business.billing = billing;
+            if (zipCode) {
+                business.address = await via_cep_service_1.ViaCepService.getAddress(zipCode);
+            }
+            return await this.businessRepository.save(business);
+        }
+        return null;
     }
     async remove(id) {
-        await this.businessRepository.delete({ id });
+        await this.businessRepository.delete(id);
     }
 };
 exports.BusinessService = BusinessService;
 exports.BusinessService = BusinessService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(business_entity_1.Business)),
-    __metadata("design:paramtypes", [typeorm_1.Repository])
+    __metadata("design:paramtypes", [business_repository_1.BusinessRepository])
 ], BusinessService);
 //# sourceMappingURL=business.service.js.map
