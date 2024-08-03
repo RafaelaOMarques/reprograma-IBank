@@ -1,16 +1,16 @@
-import { ManagerAccount } from "../entities/ManagerAccount";
-import { ManagerEnum } from "../enuns/ManagerEnum";
-import { Person } from "../entities/Person";
-import { Business } from "../entities/Business";
-import { TypeAccountEnum } from "../enuns/TypeAccountEnum";
-import { StatusEnum } from "../enuns/StatusEnum";
+import { ManagerAccount } from "./domain/usecases/ManagerAccount";
+import { ManagerEnum } from "./shared/enuns/ManagerEnum";
+import { Person } from "./domain/entities/Person";
+import { Business } from "./domain/entities/Business";
+import { TypeAccountEnum } from "./shared/enuns/TypeAccountEnum";
+import { StatusEnum } from "./shared/enuns/StatusEnum";
 
 const gerentePF = new ManagerAccount(
   "Rafaela Marques",
   "022.995.483-01",
   "Aracaju/SE",
   "79998810179",
-  ManagerEnum.PF
+  ManagerEnum.PF,
 );
 
 const gerentePJ = new ManagerAccount(
@@ -18,7 +18,7 @@ const gerentePJ = new ManagerAccount(
   "312.995.483-01",
   "Aracaju/SE",
   "7932451001",
-  ManagerEnum.PJ
+  ManagerEnum.PJ,
 );
 
 const cliente1 = new Person(
@@ -26,7 +26,7 @@ const cliente1 = new Person(
   "123.543.999-00",
   "Rua das flores, 32 - Centro, Aracaju - SE",
   "79999238772",
-  2300
+  2300,
 );
 
 const cliente2 = new Business(
@@ -34,7 +34,7 @@ const cliente2 = new Business(
   "01.234.987/0001-01",
   "Av.Paulista, 16 - Centro, São Paulo - SP",
   "1143250193",
-  50000.0
+  50000.0,
 );
 
 const cliente3 = new Person(
@@ -42,11 +42,11 @@ const cliente3 = new Person(
   "555.543.786-00",
   "Rua Amado - Centro, Aracaju - SE",
   "7932414141",
-  10000
+  10000,
 );
 
 console.log(
-  "------------------Consultando Clientes e Gerentes---------------------"
+  "------------------Consultando Clientes e Gerentes---------------------",
 );
 
 console.log(cliente1);
@@ -62,7 +62,7 @@ const contaCliente1 = gerentePF.criarConta(
   "98.872-1",
   TypeAccountEnum.Poupanca,
   "basico",
-  0.0
+  0.0,
 );
 
 const contaCliente3 = gerentePF.criarConta(
@@ -72,11 +72,11 @@ const contaCliente3 = gerentePF.criarConta(
   "98.872-1",
   TypeAccountEnum.Corrente,
   "basico",
-  2000.0
+  2000.0,
 );
 
 console.log(
-  "----------------Consultando Contas Clientes e Gerente---------------------"
+  "----------------Consultando Contas Clientes e Gerente---------------------",
 );
 
 console.log(contaCliente1);
@@ -84,7 +84,7 @@ console.log(contaCliente3);
 console.log(gerentePF);
 
 console.log(
-  "-------------------Consultando Lista de Contas-------------------"
+  "-------------------Consultando Lista de Contas-------------------",
 );
 console.log(gerentePF.accountsList);
 

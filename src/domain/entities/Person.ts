@@ -1,23 +1,23 @@
-import { Persons } from "./Persons";
+import { IPersons } from "../interfaces/IPersons";
 
-export class Business implements Persons {
+export class Person implements IPersons {
   name: string;
-  cnpj?: string | undefined;
+  cpf?: string | undefined;
   address: string;
   telephone: string;
   billing?: number | undefined;
 
   constructor(
     name: string,
-    cnpj: string,
+    cpf: string,
     address: string,
     telephone: string,
-    billing: number
+    salary: number,
   ) {
     this.name = name;
-    this.cnpj = cnpj;
+    this.cpf = cpf;
     this.address = address;
     this.telephone = telephone;
-    this.billing = billing;
+    this.billing = salary;
   }
 }

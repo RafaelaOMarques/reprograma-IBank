@@ -1,12 +1,12 @@
 import { BankAccount } from "./BankAccount";
-import { ManagerEnum } from "../enuns/ManagerEnum";
-import { Persons } from "./Persons";
-import { Person } from "./Person";
-import { Business } from "./Business";
-import { TypeAccountEnum } from "../enuns/TypeAccountEnum";
-import { StatusEnum } from "../enuns/StatusEnum";
+import { ManagerEnum } from "../../shared/enuns/ManagerEnum";
+import { IPersons } from "../interfaces/IPersons";
+import { Person } from "../entities/Person";
+import { Business } from "../entities/Business";
+import { TypeAccountEnum } from "../../shared/enuns/TypeAccountEnum";
+import { StatusEnum } from "../../shared/enuns/StatusEnum";
 
-export class ManagerAccount implements Persons {
+export class ManagerAccount implements IPersons {
   public accountsList: BankAccount[] = [];
 
   name: string;
@@ -23,7 +23,7 @@ export class ManagerAccount implements Persons {
     cpf: string,
     address: string,
     telephone: string,
-    managerType: ManagerEnum
+    managerType: ManagerEnum,
   ) {
     this.name = name;
     this.cpf = cpf;
@@ -39,7 +39,7 @@ export class ManagerAccount implements Persons {
     accountNumber: string,
     type: TypeAccountEnum,
     tariffs: string,
-    balance: number
+    balance: number,
   ): BankAccount {
     const account = BankAccount.newAccount(
       id,
@@ -49,7 +49,7 @@ export class ManagerAccount implements Persons {
       type,
       tariffs,
       balance,
-      this
+      this,
     );
 
     type === TypeAccountEnum.Corrente ? (account.specialLimit = 100.0) : 0.0;
@@ -62,7 +62,7 @@ export class ManagerAccount implements Persons {
     const close = account.putCloseAccount();
     close();
     this.accountsList = this.accountsList.filter(
-      (accountsActive) => accountsActive.id !== account.id
+      (accountsActive) => accountsActive.id !== account.id,
     );
   }
 
