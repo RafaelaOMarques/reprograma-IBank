@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Address } from 'src/_domain/entities/address.entity';
+import { Address } from 'src/domain/entities/address.entity';
 
 
 export class CreatePersonDto {
@@ -18,6 +18,7 @@ export class CreatePersonDto {
   telephone: string;
 
   @IsNumber()
+  @IsNotEmpty()
   salary: number;
 
   @IsString()

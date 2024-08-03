@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, Delete, Put, BadRequestException } 
 import { ManagerService } from '../services/manager.service';
 import { CreateManagerDto } from '../dto/create-manager.dto';
 import { UpdateManagerDto } from '../dto/update-manager.dto';
-import { Manager } from '../../_domain/entities/manager.entity';
+import { Manager } from '../../domain/entities/manager.entity';
 
 @Controller('manager')
 export class ManagerController {

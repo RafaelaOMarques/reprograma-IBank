@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Manager } from '../../_domain/entities/manager.entity';
-import { ManagerRepository } from '../../_domain/repositories/manager.repository';
-import { ManagerEnum } from 'src/_domain/shared/enuns/ManagerEnum';
-import { PersonValidator } from 'src/_domain/shared/utils/persons.validator';
-import { Address } from 'src/_domain/entities/address.entity';
-import { ViaCepService } from 'src/_infrastructure/external/third-party/via-cep/via-cep.service';
+import { Manager } from '../../domain/entities/manager.entity';
+import { ManagerRepository } from '../../domain/repositories/manager.repository';
+import { ManagerEnum } from 'src/domain/shared/enuns/ManagerEnum';
+import { PersonValidator } from 'src/domain/shared/utils/persons.validator';
+import { Address } from 'src/domain/entities/address.entity';
+import { ViaCepService } from 'src/infrastructure/external/third-party/via-cep/via-cep.service';
 
 @Injectable()
 export class ManagerService {

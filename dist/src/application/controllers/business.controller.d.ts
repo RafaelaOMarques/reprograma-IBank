@@ -1,0 +1,12 @@
+import { BusinessService } from '../services/business.service';
+import { UpdateBusinessDto } from '../../application/dto/update-business.dto';
+import { CreateBusinessDto } from '../../application/dto/create-business.dto';
+export declare class BusinessController {
+    private readonly businessService;
+    constructor(businessService: BusinessService);
+    findAll(): Promise<import("../../domain/entities/business.entity").Business[]>;
+    findOne(id: string): Promise<import("../../domain/entities/business.entity").Business>;
+    create(createBusinessDto: CreateBusinessDto): Promise<import("../../domain/entities/business.entity").Business>;
+    update(id: string, updateBusinessDto: UpdateBusinessDto): Promise<import("../../domain/entities/business.entity").Business>;
+    remove(id: string): Promise<void>;
+}

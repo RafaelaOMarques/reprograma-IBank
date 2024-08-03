@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { ViaCepValidator } from './via-cep.validator';
 import { ViaCepadapter } from './via-cep.adapter';
-import { Address } from 'src/_domain/entities/address.entity';
+import { Address } from 'src/domain/entities/address.entity';
 import axios from 'axios';
 
 

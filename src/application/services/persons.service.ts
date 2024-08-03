@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { Person } from '../../_domain/entities/person.entity';
-import { PersonRepository } from '../../_domain/repositories/persons.repository';
-import { Address } from 'src/_domain/entities/address.entity';
-import { ViaCepService } from 'src/_infrastructure/external/third-party/via-cep/via-cep.service';
-import { PersonValidator } from 'src/_domain/shared/utils/persons.validator';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Person } from '../../domain/entities/person.entity';
+import { PersonRepository } from '../../domain/repositories/persons.repository';
+import { Address } from 'src/domain/entities/address.entity';
+import { ViaCepService } from 'src/infrastructure/external/third-party/via-cep/via-cep.service';
+import { PersonValidator } from 'src/domain/shared/utils/persons.validator';
 
   //TODO: Criar message error custumizada
 
@@ -69,7 +69,7 @@ export class PersonService {
     const person  = await this.listPersonById(id);
 
     if (!person) {
-      throw new Error('Person not found');
+      throw new NotFoundException('Person not found');
     }
     
     if (person){

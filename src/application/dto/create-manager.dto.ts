@@ -1,6 +1,6 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { Address } from "src/_domain/entities/address.entity";
-import { ManagerEnum } from "src/_domain/shared/enuns/ManagerEnum";
+import { Address } from "src/domain/entities/address.entity";
+import { ManagerEnum } from "src/domain/shared/enuns/ManagerEnum";
 
 export class CreateManagerDto {
   id: string;

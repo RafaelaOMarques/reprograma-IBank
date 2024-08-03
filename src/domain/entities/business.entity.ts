@@ -1,6 +1,6 @@
-import { Address } from "src/_domain/entities/address.entity";
+import { Address } from "src/domain/entities/address.entity";
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
-import { PersonsLegal } from "src/_domain/shared/interfaces/PersonsLegal.interface";
+import { PersonsLegal } from "src/domain/shared/interfaces/PersonsLegal.interface";
 
 @Entity()
 export class Business implements PersonsLegal {

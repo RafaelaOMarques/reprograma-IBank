@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Business } from '../../_domain/entities/business.entity';
-import { BusinessRepository } from '../../_domain/repositories/business.repository';
-import { PersonValidator } from 'src/_domain/shared/utils/persons.validator';
-import { Address } from 'src/_domain/entities/address.entity';
-import { ViaCepService } from 'src/_infrastructure/external/third-party/via-cep/via-cep.service';
+import { Business } from '../../domain/entities/business.entity';
+import { BusinessRepository } from '../../domain/repositories/business.repository';
+import { PersonValidator } from 'src/domain/shared/utils/persons.validator';
+import { Address } from 'src/domain/entities/address.entity';
+import { ViaCepService } from 'src/infrastructure/external/third-party/via-cep/via-cep.service';
 
 
 @Injectable()

@@ -8,15 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const persons_module_1 = require("./_application/modules/persons.module");
-const manager_module_1 = require("./_application/modules/manager.module");
+const persons_module_1 = require("./application/modules/persons.module");
+const manager_module_1 = require("./application/modules/manager.module");
 const account_module_1 = require("./account/account.module");
-const business_module_1 = require("./_application/modules/business.module");
-const typeorm_module_1 = require("./_infrastructure/database/typeorm.module");
+const business_module_1 = require("./application/modules/business.module");
+const typeorm_module_1 = require("./infrastructure/database/typeorm.module");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
+const erros_1 = require("./application/services/erros");
 require('dotenv').config();
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer
+            .apply(erros_1.ErrorMiddleware)
+            .forRoutes({ path: '*', method: common_1.RequestMethod.ALL });
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([

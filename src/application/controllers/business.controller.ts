@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, BadRequestException } from '@nestjs/common';
-import { BusinessService } from '../../_application/services/business.service';
-import { UpdateBusinessDto } from '../../_application/dto/update-business.dto';
-import { CreateBusinessDto } from '../../_application/dto/create-business.dto';
+import { BusinessService } from '../services/business.service';
+import { UpdateBusinessDto } from '../../application/dto/update-business.dto';
+import { CreateBusinessDto } from '../../application/dto/create-business.dto';
 
 
 @Controller('business')
