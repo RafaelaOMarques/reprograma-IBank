@@ -19,6 +19,6 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "test/implemetation.test.ts", "test/persons.controller.spec.ts", "test/persons.service.spec.ts", "test/app.controller.spec.ts"],
   "exclude": ["node_modules", "dist"]
 }
