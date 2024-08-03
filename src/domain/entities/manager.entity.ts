@@ -1,6 +1,6 @@
 import { ManagerEnum } from "../shared/enuns/ManagerEnum";
 import { PersonsPhysical } from "../shared/interfaces/PersonsPhysical.interface";
-import { Address } from "src/_domain/entities/address.entity";
+import { Address } from "src/domain/entities/address.entity";
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

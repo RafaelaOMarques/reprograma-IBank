@@ -1,9 +1,9 @@
 import { DataSource } from 'typeorm';
 import { Global, Module } from '@nestjs/common';
-import { Person } from 'src/_domain/entities/person.entity';
-import { Business } from 'src/_domain/entities/business.entity';
-import { Address } from 'src/_domain/entities/address.entity';
-import { Manager } from 'src/_domain/entities/manager.entity';
+import { Person } from 'src/domain/entities/person.entity';
+import { Business } from 'src/domain/entities/business.entity';
+import { Address } from 'src/domain/entities/address.entity';
+import { Manager } from 'src/domain/entities/manager.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Global()

@@ -1,8 +1,8 @@
-import { Manager } from "../../_domain/entities/manager.entity";
-import { Person } from "../../_domain/entities/person.entity";
-import { TypeAccountEnum } from "../../_domain/shared/enuns/TypeAccountEnum";
-import { StatusEnum } from "../../_domain/shared/enuns/StatusEnum";
-import { Business } from 'src/_domain/entities/business.entity';
+import { Manager } from "../../domain/entities/manager.entity";
+import { Person } from "../../domain/entities/person.entity";
+import { TypeAccountEnum } from "../../domain/shared/enuns/TypeAccountEnum";
+import { StatusEnum } from "../../domain/shared/enuns/StatusEnum";
+import { Business } from 'src/domain/entities/business.entity';
 export declare class Account {
     id: string;
     client: Person | Business;

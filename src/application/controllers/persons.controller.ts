@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Patch, OnApplicationShutdown, Param, Delete, Put, BadRequestException } from '@nestjs/common';
-import { PersonService } from '../../_application/services/persons.service';
-import { CreatePersonDto } from '../../_application/dto/create-person.dto';
-import { UpdatePersonDto } from '../../_application/dto/update-person.dto';
-import { Person } from '../../_domain/entities/person.entity';
+import { PersonService } from '../services/persons.service';
+import { CreatePersonDto } from '../../application/dto/create-person.dto';
+import { UpdatePersonDto } from '../../application/dto/update-person.dto';
+import { Person } from '../../domain/entities/person.entity';
 
 @Controller('person')
 export class PersonController {

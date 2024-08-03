@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Manager } from "../../_domain/entities/manager.entity";
-import { Person } from "../../_domain/entities/person.entity";
-import { TypeAccountEnum } from "../../_domain/shared/enuns/TypeAccountEnum";
-import { StatusEnum } from "../../_domain/shared/enuns/StatusEnum";
-import { VALUE_ACCOUNT } from 'src/_domain/shared/constants/constants';
-import { Business } from 'src/_domain/entities/business.entity';
+import { Manager } from "../../domain/entities/manager.entity";
+import { Person } from "../../domain/entities/person.entity";
+import { TypeAccountEnum } from "../../domain/shared/enuns/TypeAccountEnum";
+import { StatusEnum } from "../../domain/shared/enuns/StatusEnum";
+import { VALUE_ACCOUNT } from 'src/domain/shared/constants/constants';
+import { Business } from 'src/domain/entities/business.entity';
 
 export class Account {
   id: string;

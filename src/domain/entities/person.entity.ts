@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
 import { PersonsPhysical } from "../shared/interfaces/PersonsPhysical.interface";
-import { Address } from "src/_domain/entities/address.entity";
+import { Address } from "src/domain/entities/address.entity";
 
 @Entity()
 export class Person implements PersonsPhysical {
