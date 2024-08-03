@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const testing_1 = require("@nestjs/testing");
-const persons_service_1 = require("../src/persons/persons.service");
-const persons_controller_1 = require("../src/persons/persons.controller");
+const persons_service_1 = require("../src/_application/services/persons.service");
+const persons_controller_1 = require("../src/_application/controllers/persons.controller");
 describe('PersonsController', () => {
     let controller;
     beforeEach(async () => {

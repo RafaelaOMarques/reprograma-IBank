@@ -8,32 +8,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const persons_module_1 = require("./persons/persons.module");
-const manager_module_1 = require("./manager/manager.module");
+const persons_module_1 = require("./_application/modules/persons.module");
+const manager_module_1 = require("./_application/modules/manager.module");
 const account_module_1 = require("./account/account.module");
-const typeorm_1 = require("@nestjs/typeorm");
-const person_entity_1 = require("./persons/entities/person.entity");
-const business_entity_1 = require("./business/entities/business.entity");
-const business_module_1 = require("./business/business.module");
-const address_entity_1 = require("./address/address.entity");
+const business_module_1 = require("./_application/modules/business.module");
+const typeorm_module_1 = require("./_infrastructure/database/typeorm.module");
+const app_controller_1 = require("./app.controller");
+const app_service_1 = require("./app.service");
 require('dotenv').config();
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                database: process.env.DATABASE_NAME,
-                username: process.env.DATABASE_USERNAME,
-                password: process.env.DATABASE_PASSWORD,
-                entities: [person_entity_1.Person, business_entity_1.Business, address_entity_1.Address],
-                synchronize: true,
-            }), persons_module_1.PersonsModule, manager_module_1.ManagerModule, account_module_1.AccountModule, business_module_1.BusinessModule,],
-        controllers: [],
-        providers: [],
+        imports: [typeorm_module_1.DataSourceModule, persons_module_1.PersonsModule, manager_module_1.ManagerModule, business_module_1.BusinessModule, account_module_1.AccountModule],
+        controllers: [app_controller_1.AppController],
+        providers: [app_service_1.AppService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

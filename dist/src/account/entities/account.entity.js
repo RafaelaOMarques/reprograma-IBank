@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Account = void 0;
 const uuid_1 = require("uuid");
-const TypeAccountEnum_1 = require("../../shared/enuns/TypeAccountEnum");
-const StatusEnum_1 = require("../../shared/enuns/StatusEnum");
-const constants_1 = require("../../shared/constants/constants");
+const TypeAccountEnum_1 = require("../../_domain/shared/enuns/TypeAccountEnum");
+const StatusEnum_1 = require("../../_domain/shared/enuns/StatusEnum");
+const constants_1 = require("../../_domain/shared/constants/constants");
 class Account {
     constructor(id, client, agency, accountNumber, type, tariffs, balance, accountManager) {
         if (type === TypeAccountEnum_1.TypeAccountEnum.Corrente && balance < constants_1.VALUE_ACCOUNT.MIN_BALANCE) {

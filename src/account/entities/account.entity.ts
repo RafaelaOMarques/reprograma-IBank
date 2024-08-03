@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ManagerAccount } from "../../manager/entities/managerAccount.entity";
-import { Person } from "../../persons/entities/person.entity";
-import { TypeAccountEnum } from "../../shared/enuns/TypeAccountEnum";
-import { StatusEnum } from "../../shared/enuns/StatusEnum";
-import { VALUE_ACCOUNT } from 'src/shared/constants/constants';
-import { Business } from 'src/business/entities/business.entity';
+import { Manager } from "../../_domain/entities/manager.entity";
+import { Person } from "../../_domain/entities/person.entity";
+import { TypeAccountEnum } from "../../_domain/shared/enuns/TypeAccountEnum";
+import { StatusEnum } from "../../_domain/shared/enuns/StatusEnum";
+import { VALUE_ACCOUNT } from 'src/_domain/shared/constants/constants';
+import { Business } from 'src/_domain/entities/business.entity';
 
 export class Account {
   id: string;
@@ -16,7 +16,7 @@ export class Account {
   tariffs: string;
   balance: number;
   specialLimit?: number;
-  accountManager: ManagerAccount;
+  accountManager: Manager;
 
   private constructor(
     id: string,
@@ -26,7 +26,7 @@ export class Account {
     type: TypeAccountEnum,
     tariffs: string,
     balance: number,
-    accountManager: ManagerAccount,
+    accountManager: Manager,
   ) {
     if (type === TypeAccountEnum.Corrente && balance <  VALUE_ACCOUNT.MIN_BALANCE) {
       throw new Error(
@@ -44,6 +44,34 @@ export class Account {
     this.balance = balance;
     this.accountManager = accountManager;
   }
+
+  // public accountsList: Account[] = [];
+
+  // criarConta(
+  //   id: string,
+  //   client: Person | Business,
+  //   agency: string,
+  //   accountNumber: string,
+  //   type: TypeAccountEnum,
+  //   tariffs: string,
+  //   balance: number,
+  // ): Account {
+  //   const account = Account.newAccount(
+  //     id,
+  //     client,
+  //     agency,
+  //     accountNumber,
+  //     type,
+  //     tariffs,
+  //     balance,
+  //     this,
+  //   );
+
+  //   type === TypeAccountEnum.Corrente ? (account.specialLimit = 100.0) : 0.0;
+
+  //   this.accountsList.push(account);
+  //   return account;
+  // }
 
   take(value: number): void {
     if (value <= 0) {
@@ -90,7 +118,7 @@ export class Account {
     type: TypeAccountEnum,
     tariffs: string,
     balance: number,
-    accountManager: ManagerAccount,
+    accountManager: Manager,
   ): Account {
     return new Account(
       id,
